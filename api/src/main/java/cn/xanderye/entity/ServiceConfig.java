@@ -38,6 +38,8 @@ public class ServiceConfig implements Serializable {
 
     private String param;
 
+    private Integer status;
+
     private String creator;
 
     private LocalDateTime createTime;

@@ -37,8 +37,6 @@ import java.util.List;
 @Component
 public class LogAspect {
     @Autowired
-    private RedisUtil redisUtil;
-    @Autowired
     private AccessLogService accessLogService;
 
     private static final List<String> NO_SAVE_LIST = new ArrayList<String>(){{
@@ -71,20 +69,11 @@ public class LogAspect {
         String ip = RequestUtil.getIpAddress(request);
         AccessLog accessLog = new AccessLog();
         User user = UserContextHolder.get();
-        if (user == null) {
-            // 匿名接口如果登录过也获取用户信息
-            String userToken = request.getHeader("token");
-            if (StringUtils.isNotEmpty(userToken)) {
-                user = (User) redisUtil.get("user_" + userToken);
-            }
-        }
-        if (user != null) {
-            accessLog.setUserId(user.getId());
-        }
+        accessLog.setUserId(user.getId());
         if (StringUtils.isNotEmpty(aLog.methodName())) {
             methodName = aLog.methodName();
         }
-        String str = MessageFormat.format("{0}请求[{1}]模块，[{2}]方法，参数：{3}，用户：{4}", ip, aLog.moduleName(), methodName, Arrays.toString(args), user == null ? "匿名" : user.getNickname());
+        String str = MessageFormat.format("{0}请求[{1}]模块，[{2}]方法，参数：{3}，用户：{4}", ip, aLog.moduleName(), methodName, Arrays.toString(args), user.getNickname());
         log.info(str);
         boolean save = true;
         String resultStr = null;

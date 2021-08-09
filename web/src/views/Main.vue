@@ -39,7 +39,7 @@
 
       <div slot="right" class="avatar-button" style="margin-right: 5px;">
         <mu-button flat ref="avatarButton" @click="userMenu = !userMenu">
-          <img :src="user.avatar" :onerror="errorImg">
+          <img src="static/img/defaultavatar.jpg" :onerror="errorImg">
         </mu-button>
         <mu-popover cover placement="left-start" :open.sync="userMenu" :trigger="userMenuTrigger">
           <div class="popover-div">

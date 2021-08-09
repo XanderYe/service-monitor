@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IServiceMailContactService extends IService<ServiceMailContact> {
 
+    void deleteByServiceId(Long serviceId);
 }

@@ -6,6 +6,9 @@ import cn.xanderye.service.IServiceMailContactService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * <p>
  *  服务实现类
@@ -17,4 +20,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ServiceMailContactServiceImpl extends ServiceImpl<ServiceMailContactMapper, ServiceMailContact> implements IServiceMailContactService {
 
+    @Override
+    public void deleteByServiceId(Long serviceId) {
+        Map<String, Object> columnMap = new HashMap<>();
+        columnMap.put("service_id", serviceId);
+        removeByMap(columnMap);
+    }
 }

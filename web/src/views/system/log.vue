@@ -3,7 +3,7 @@
     <mu-data-table stripe :columns="columns" :data="dataList" style="margin-top: 16px;">
       <template slot-scope="scope">
         <td>{{scope.row.id}}</td>
-        <td>{{scope.row.user != null ? scope.row.user.nickname : "匿名"}}</td>
+        <td>{{scope.row.user != null ? scope.row.user.nickname : "系统"}}</td>
         <td>{{scope.row.ip}}</td>
         <td>{{scope.row.moduleName}}</td>
         <mu-tooltip :content='scope.row.message'><td style="white-space: nowrap">{{scope.row.message}}</td></mu-tooltip>

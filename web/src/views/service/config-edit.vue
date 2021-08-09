@@ -7,6 +7,9 @@
       <mu-form-item prop="url" label="地址" :rules="urlRules">
         <mu-text-field v-model="form.url"></mu-text-field>
       </mu-form-item>
+      <mu-form-item prop="status" label="状态">
+        <mu-radio :value="item.value" v-model="form.status"  :label="item.name" :key="'radio' + item.id" v-for="item in status"></mu-radio>
+      </mu-form-item>
       <mu-form-item label="邮件联系人">
         <div>
           <div>
@@ -27,7 +30,7 @@
           </div>
         </div>
       </mu-form-item>
-      <mu-button style="float: left;" color="secondary" @click="save" v-loading="saveLoading">保存</mu-button>
+      <mu-button style="float: left;" color="secondary" @click="save" v-loading="saveLoading" data-mu-loading-size="24">保存</mu-button>
     </mu-form>
 
     <mu-dialog title="机器人联系人" width="480" :open.sync="dingtalkContactDialog">
@@ -54,10 +57,22 @@
         form: {
           id: null,
           name: null,
-          url: null,
+          status: 0,
           mailContactList: [],
           serviceDingtalkContactMap: null,
         },
+        status: [
+          {
+            id: 1,
+            value: 0,
+            name: "启用"
+          },
+          {
+            id: 2,
+            value: 1,
+            name: "禁用"
+          }
+        ],
         serviceDingtalkList: [],
         nameRules: [
           {validate: (val) => !!val, message: '必须填写名称'},

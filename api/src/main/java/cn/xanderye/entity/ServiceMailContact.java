@@ -23,9 +23,16 @@ public class ServiceMailContact implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    private Integer serviceId;
+    private Long serviceId;
 
-    private Integer contactId;
+    private Long contactId;
 
+    public ServiceMailContact() {
 
+    }
+
+    public ServiceMailContact(Long serviceId, Long contactId) {
+        this.serviceId = serviceId;
+        this.contactId = contactId;
+    }
 }

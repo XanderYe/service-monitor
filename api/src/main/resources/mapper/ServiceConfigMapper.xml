@@ -4,6 +4,7 @@
     <resultMap id="BaseResultMap" type="cn.xanderye.entity.ServiceConfig">
         <id column="id" property="id"/>
         <result column="url" property="url"/>
+        <result column="status" property="status"/>
         <result column="creator" property="creator"/>
         <result column="create_time" property="createTime"/>
         <result column="updater" property="updater"/>

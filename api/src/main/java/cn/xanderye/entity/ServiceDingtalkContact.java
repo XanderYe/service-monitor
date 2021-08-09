@@ -29,5 +29,13 @@ public class ServiceDingtalkContact implements Serializable {
 
     private Long contactId;
 
+    public ServiceDingtalkContact() {
 
+    }
+
+    public ServiceDingtalkContact(Long serviceId, Long dingtalkId, Long contactId) {
+        this.serviceId = serviceId;
+        this.dingtalkId = dingtalkId;
+        this.contactId = contactId;
+    }
 }

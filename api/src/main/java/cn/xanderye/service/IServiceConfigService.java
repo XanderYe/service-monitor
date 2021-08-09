@@ -4,6 +4,8 @@ import cn.xanderye.entity.ServiceConfig;
 import cn.xanderye.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -14,7 +16,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IServiceConfigService extends IService<ServiceConfig> {
 
-    ServiceConfig getFullServiceConfig(Long id);
+    List<ServiceConfig> getEnableServiceConfigList();
+
+    ServiceConfig getFullServiceConfig(Long id, ServiceConfig serviceConfig);
 
     ServiceConfig saveServiceConfig(ServiceConfig serviceConfig, User user);
 }

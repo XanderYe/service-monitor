@@ -10,7 +10,7 @@
       <mu-form-item prop="phone" label="手机号" :rules="phoneRules">
         <mu-text-field v-model="form.phone"></mu-text-field>
       </mu-form-item>
-      <mu-button style="float: left;" color="secondary" @click="save" v-loading="saveLoading">保存</mu-button>
+      <mu-button style="float: left;" color="secondary" @click="save" v-loading="saveLoading" data-mu-loading-size="24">保存</mu-button>
     </mu-form>
   </mu-container>
 </template>

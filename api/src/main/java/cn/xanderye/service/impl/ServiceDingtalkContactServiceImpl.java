@@ -45,7 +45,7 @@ public class ServiceDingtalkContactServiceImpl extends ServiceImpl<ServiceDingta
     @Override
     public void deleteByServiceId(Long serviceId) {
         Map<String, Object> columnMap = new HashMap<>();
-        columnMap.put("serviceId", serviceId);
+        columnMap.put("service_id", serviceId);
         removeByMap(columnMap);
     }
 }

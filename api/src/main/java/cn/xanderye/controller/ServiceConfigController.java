@@ -5,12 +5,14 @@ import cn.xanderye.base.ResultBean;
 import cn.xanderye.base.UserContextHolder;
 import cn.xanderye.entity.ServiceConfig;
 import cn.xanderye.entity.User;
+import cn.xanderye.redis.RedisUtil;
 import cn.xanderye.service.IServiceConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -25,6 +27,8 @@ import java.util.List;
 public class ServiceConfigController {
     @Autowired
     private IServiceConfigService serviceConfigService;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @GetMapping("getList")
     public ResultBean getList() {
@@ -34,7 +38,7 @@ public class ServiceConfigController {
 
     @GetMapping("getById")
     public ResultBean getById(Long id) {
-        ServiceConfig serviceConfig = serviceConfigService.getFullServiceConfig(id);
+        ServiceConfig serviceConfig = serviceConfigService.getFullServiceConfig(id, null);
         return new ResultBean(serviceConfig);
     }
 
@@ -48,6 +52,27 @@ public class ServiceConfigController {
     @PostMapping("delete")
     public ResultBean delete(String id) {
         serviceConfigService.removeById(id);
+        return new ResultBean();
+    }
+
+    @GetMapping("getPublish")
+    public ResultBean getPublish() {
+        Boolean isPublish = (Boolean) redisUtil.get("isPublish");
+        if (isPublish == null) {
+            isPublish = false;
+        }
+        return new ResultBean(isPublish);
+    }
+
+    @PostMapping("setPublish")
+    public ResultBean setPublish() {
+        redisUtil.set("isPublish", true, 30, TimeUnit.MINUTES);
+        return new ResultBean();
+    }
+
+    @PostMapping("resetPublish")
+    public ResultBean resetPublish() {
+        redisUtil.delete("isPublish");
         return new ResultBean();
     }
 }

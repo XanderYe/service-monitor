@@ -106,6 +106,17 @@ public class RedisUtil {
     }
 
     /**
+     * 根据模式匹配键值
+     * @param pattern
+     * @return java.util.Set<java.lang.String>
+     * @author XanderYe
+     * @date 2021/8/9
+     */
+    public Set<String> keys(String pattern) {
+        return redisTemplate.keys(pattern);
+    }
+
+    /**
      * 删除
      * @param key
      * @return void

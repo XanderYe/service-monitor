@@ -121,6 +121,9 @@ new Vue({
         .mu-circle-spinner {
           border-color: ${theme.secondary};
         }
+        .mu-radio-checked {
+          color: ${theme.secondary};
+        }
       `;
     });
     theme.use('teal');
