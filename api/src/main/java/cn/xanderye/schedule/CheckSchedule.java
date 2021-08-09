@@ -26,7 +26,8 @@ public class CheckSchedule {
     @Autowired
     private ScheduleService scheduleService;
 
-    @Scheduled(cron = "0 */5 * * * ? ")
+    @Scheduled(cron = "*/15 * * * * ? ")
+    //@Scheduled(cron = "0 */5 * * * ? ")
     public void checkService() {
         List<ServiceConfig> serviceConfigList = serviceConfigService.getEnableServiceConfigList();
         if (!serviceConfigList.isEmpty()) {

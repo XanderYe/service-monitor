@@ -37,6 +37,10 @@
       </mu-button>
       {{appBarName}}
 
+      <div style="float: right">
+        <mu-button primary v-if="publish" @click="resetPublish">切换监控</mu-button>
+        <mu-button primary v-else @click="changePublish">切换发版</mu-button>
+      </div>
       <div slot="right" class="avatar-button" style="margin-right: 5px;">
         <mu-button flat ref="avatarButton" @click="userMenu = !userMenu">
           <img src="static/img/defaultavatar.jpg" :onerror="errorImg">
@@ -93,6 +97,7 @@
         userMenu: false,
         // 菜单弹出绑定元素
         userMenuTrigger: null,
+        publish: false
       }
     },
     computed: {
@@ -184,6 +189,29 @@
       },
       toUserInfoPage() {
         this.$snackbar("暂未实现");
+      },
+      getPublish() {
+        this.$requests.get("/serviceConfig/getPublish").then(res => {
+          if (res.data.code === 0) {
+            this.publish = res.data.data;
+          }
+        })
+      },
+      changePublish() {
+        this.$requests.post("/serviceConfig/setPublish").then(res => {
+          if (res.data.code === 0) {
+            this.$snackbar("已开启发版模式，不监控服务，有效期30分钟");
+            this.publish = true;
+          }
+        })
+      },
+      resetPublish() {
+        this.$requests.post("/serviceConfig/resetPublish").then(res => {
+          if (res.data.code === 0) {
+            this.$snackbar("已关闭发版模式，开始监控服务");
+            this.publish = false;
+          }
+        })
       }
     },
     created() {
@@ -193,6 +221,7 @@
       // 设置当前页面名称
       this.openItem = sessionStorage.getItem("openItem") ? sessionStorage.getItem("openItem") : "";
       this.appBarName = sessionStorage.getItem("appBarName") ? sessionStorage.getItem("appBarName") : "首页";
+      this.getPublish();
     },
     mounted() {
       this.user.role = parseInt(localStorage.getItem("role"));
