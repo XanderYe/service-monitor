@@ -25,7 +25,7 @@ export const router = new Router({
     {
       path: '/login',
       title: '登录',
-      name: 'main',
+      name: 'login',
       menuHide: true,
       component: Login,
     },

@@ -163,6 +163,7 @@
             localStorage.removeItem("token");
             this.userMenuTrigger = null;
             this.$snackbar({message: "注销成功"});
+            this.$router.push({path: "/login"});
           } else {
             this.$snackbar(res.data.msg);
           }

@@ -30,6 +30,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // 登录拦截器
         registry.addInterceptor(this.loginInterceptor).addPathPatterns("/**")
+                .excludePathPatterns("/index.html")
+                .excludePathPatterns("/static/**")
                 .excludePathPatterns("/error")
                 .excludePathPatterns("/captcha")
                 .excludePathPatterns("/user/login")
