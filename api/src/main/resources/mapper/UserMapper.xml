@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xanderye.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="cn.xanderye.entity.User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="token" property="token"/>
+        <result column="avatar" property="avatar"/>
+        <result column="status" property="status"/>
+        <result column="role" property="role"/>
+    </resultMap>
+
+    <select id="findByUsername" resultMap="BaseResultMap">
+        select * from user where username=#{username}
+    </select>
+
+    <select id="findByToken" resultMap="BaseResultMap">
+        select * from user where token=#{token}
+    </select>
+</mapper>

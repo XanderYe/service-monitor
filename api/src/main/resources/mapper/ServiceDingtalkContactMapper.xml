@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xanderye.mapper.ServiceDingtalkContactMapper">
+
+    <resultMap id="BaseResultMap" type="cn.xanderye.entity.ServiceDingtalkContact">
+        <id column="id" property="id"/>
+        <result column="service_id" property="serviceId"/>
+        <result column="dingtalk_id" property="dingtalkId"/>
+        <result column="contact_id" property="contactId"/>
+    </resultMap>
+
+    <select id="selectServiceDingtalkContactListByServiceId" resultMap="BaseResultMap">
+        select * from service_dingtalk_contact where service_id = #{serviceId}
+    </select>
+</mapper>
