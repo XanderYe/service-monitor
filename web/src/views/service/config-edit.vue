@@ -59,7 +59,7 @@
           name: null,
           status: 0,
           mailContactList: [],
-          serviceDingtalkContactMap: null,
+          serviceDingtalkContactMap: {},
         },
         status: [
           {
@@ -222,6 +222,8 @@
           this.axiosAll(() => {
             this.getById();
           })
+        } else {
+          this.axiosAll();
         }
       }
     },
