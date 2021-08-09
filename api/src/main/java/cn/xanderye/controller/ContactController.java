@@ -29,21 +29,19 @@ public class ContactController {
     @Autowired
     private IContactService contactService;
 
-    @Log(moduleName = "服务管理", methodName = "获取联系人列表")
     @GetMapping("getList")
     public ResultBean getList() {
         List<Contact> list = contactService.list();
         return new ResultBean(list);
     }
 
-    @Log(moduleName = "服务管理", methodName = "根据id获取联系人")
     @GetMapping("getById")
     public ResultBean getById(Long id) {
         Contact contact = contactService.getById(id, null);
         return new ResultBean(contact);
     }
 
-    @Log(moduleName = "服务管理", methodName = "保存联系人信息")
+    @Log(moduleName = "服务管理", methodName = "保存联系人信息", logResult = false)
     @PostMapping("save")
     public ResultBean save(@RequestBody Contact contact) {
         User user = UserContextHolder.get();
@@ -51,7 +49,7 @@ public class ContactController {
         return new ResultBean();
     }
 
-    @Log(moduleName = "服务管理", methodName = "删除联系人")
+    @Log(moduleName = "服务管理", methodName = "删除联系人", logResult = false)
     @PostMapping("delete")
     public ResultBean delete(Long id) {
         contactService.deleteConcat(id);

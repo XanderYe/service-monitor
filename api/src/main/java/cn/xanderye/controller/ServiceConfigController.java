@@ -1,6 +1,7 @@
 package cn.xanderye.controller;
 
 
+import cn.xanderye.aop.Log;
 import cn.xanderye.base.ResultBean;
 import cn.xanderye.base.UserContextHolder;
 import cn.xanderye.entity.ServiceConfig;
@@ -42,6 +43,7 @@ public class ServiceConfigController {
         return new ResultBean(serviceConfig);
     }
 
+    @Log(moduleName = "服务管理", methodName = "保存服务", logResult = false)
     @PostMapping("save")
     public ResultBean save(@RequestBody ServiceConfig serviceConfig) {
         User user = UserContextHolder.get();
@@ -64,12 +66,14 @@ public class ServiceConfigController {
         return new ResultBean(isPublish);
     }
 
+    @Log(moduleName = "服务管理", methodName = "切换发版模式", logResult = false)
     @PostMapping("setPublish")
     public ResultBean setPublish() {
         redisUtil.set("isPublish", true, 30, TimeUnit.MINUTES);
         return new ResultBean();
     }
 
+    @Log(moduleName = "服务管理", methodName = "切换普通模式", logResult = false)
     @PostMapping("resetPublish")
     public ResultBean resetPublish() {
         redisUtil.delete("isPublish");
