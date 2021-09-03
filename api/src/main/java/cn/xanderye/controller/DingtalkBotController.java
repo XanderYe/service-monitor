@@ -7,10 +7,15 @@ import cn.xanderye.base.UserContextHolder;
 import cn.xanderye.entity.DingtalkBot;
 import cn.xanderye.entity.User;
 import cn.xanderye.service.IDingtalkBotService;
+import cn.xanderye.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -52,6 +57,18 @@ public class DingtalkBotController {
     public ResultBean delete(Long id) {
         dingtalkBotService.deleteBot(id);
         return new ResultBean();
+    }
+
+    @Log(moduleName = "机器人管理", methodName = "测试机器人", logResult = false)
+    @PostMapping("test")
+    public ResultBean test(@RequestBody DingtalkBot dingtalkBot) {
+        try {
+            MessageService.dingTalkBotPush(dingtalkBot.getToken(), dingtalkBot.getSecret(), "测试服务监控消息推送", false, Collections.singletonList("13777004558"));
+            return new ResultBean();
+        } catch (IOException | NoSuchAlgorithmException | InvalidKeyException e) {
+            e.printStackTrace();
+            return new ResultBean(1, e.getMessage());
+        }
     }
 }
 

@@ -11,6 +11,7 @@
         <mu-text-field v-model="form.secret"></mu-text-field>
       </mu-form-item>
       <mu-button style="float: left;" color="secondary" @click="save" v-loading="saveLoading" data-mu-loading-size="24">保存</mu-button>
+      <mu-button style="float: left;" color="secondary" @click="test">测试</mu-button>
     </mu-form>
   </mu-container>
 </template>
@@ -66,6 +67,20 @@
           }
         })
       },
+      test() {
+        this.$refs.form.validate().then(validate => {
+          if (validate) {
+            this.$requests.post("/dingtalkBot/test", this.form).then(res => {
+              if (res.data.code === 0) {
+                this.$snackbar("发送成功");
+                this.$router.push({name: "dingtalk-bot"});
+              } else {
+                this.$snackbar(res.data.msg);
+              }
+            })
+          }
+        })
+      }
     },
     created() {
 
