@@ -11,7 +11,7 @@
         <mu-text-field v-model="form.secret"></mu-text-field>
       </mu-form-item>
       <mu-button style="float: left;" color="secondary" @click="save" v-loading="saveLoading" data-mu-loading-size="24">保存</mu-button>
-      <mu-button style="float: left;" color="secondary" @click="test">测试</mu-button>
+      <mu-button style="float: left;margin-left: 8px;" color="red" @click="test">测试</mu-button>
     </mu-form>
   </mu-container>
 </template>
