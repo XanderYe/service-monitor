@@ -8,7 +8,9 @@ import cn.xanderye.entity.DingtalkBot;
 import cn.xanderye.entity.User;
 import cn.xanderye.service.IDingtalkBotService;
 import cn.xanderye.service.MessageService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -31,6 +33,8 @@ import java.util.List;
 public class DingtalkBotController {
     @Autowired
     private IDingtalkBotService dingtalkBotService;
+    @Value("${test.phone}")
+    private String testPhone;
 
     @GetMapping("getList")
     public ResultBean getList() {
@@ -63,7 +67,8 @@ public class DingtalkBotController {
     @PostMapping("test")
     public ResultBean test(@RequestBody DingtalkBot dingtalkBot) {
         try {
-            MessageService.dingTalkBotPush(dingtalkBot.getToken(), dingtalkBot.getSecret(), "测试服务监控消息推送", false, Collections.singletonList("13777004558"));
+            List<String> phoneList = StringUtils.isEmpty(testPhone) ? null : Collections.singletonList(testPhone);
+            MessageService.dingTalkBotPush(dingtalkBot.getToken(), dingtalkBot.getSecret(), "测试服务监控消息推送", false, phoneList);
             return new ResultBean();
         } catch (IOException | NoSuchAlgorithmException | InvalidKeyException e) {
             e.printStackTrace();
