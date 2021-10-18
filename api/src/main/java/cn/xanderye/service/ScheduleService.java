@@ -104,7 +104,11 @@ public class ScheduleService {
                 Contact contact = contactService.getById(contactId, null);
                 to.add(contact.getEmail());
             }
-            messageService.sendEmail(title, content, to, null);
+            try {
+                messageService.sendEmail(title, content, to, null);
+            } catch (Exception e) {
+                log.error("邮件发送失败，原因：{}", e.getMessage());
+            }
         }
 
         // 发送钉钉消息
@@ -127,6 +131,10 @@ public class ScheduleService {
                 }
             }
         }
-
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
